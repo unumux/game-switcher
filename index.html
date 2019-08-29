@@ -79,7 +79,7 @@ const uscSchedule = [
   
   for(game of uscSchedule) {
     // Subtract the game date in miliseconds from the current time in miliseconds.
-    let t = currentDate1.getTime() - game.date.getTime(); 
+    let t = currentDate.getTime() - game.date.getTime(); 
     // Divide the outcome by number of days calc (cd).
     let d = Math.floor(t / cd);
     // If the number of days is negative, set the game ID & break out.
