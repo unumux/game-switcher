@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <title>CodePen - USC Schedule</title>
+</head>
+<body translate="no">
+    <form class="hero__form" autocomplete="off">
+        <div class="hero__input-wrapper hero__input-wrapper--home">
+            <label class="hero__label hero__label--home" for="scScore">Gamecocks</label>
+            <input class="hero__input" id="scScore" type="number" maxlength="2" placeholder="0" />
+        </div>
+
+        <div class="hero__input-wrapper hero__input-wrapper--away">
+            <label class="hero__label hero__label--away" for="visitorScore">North Carolina</label>
+            <input class="hero__input" id="visitorScore" type="number" maxlength="2" placeholder="0" />
+        </div>
+    </form>
+
+<script id="rendered-js">
+    
+    const awayTeam = document.querySelector(".hero__label--away"),
+    currentDate = new Date(),
+    currentDate1 = new Date("2019-09-01T00:00:01"),
+    currentDate2 = new Date("2019-09-14T00:00:01"),
+    cd = 24 * 60 * 60 * 1000;
+
+const uscSchedule = [
+        {
+            id: "North Carolina",
+            date: new Date('August 31, 2019'),
+        },
+        {
+            id: "Charleston So",
+            date: new Date("September 07, 2019")
+        },
+        {
+            id: "Alabama",
+            date: new Date("September 14, 2019")
+        },
+        {
+            id: "Missouri",
+            date: new Date("September 21, 2019")
+        },
+        {
+            id: "Kentucky",
+            date: new Date("September 28, 2019")
+        },
+        {
+            id: "Georgia",
+            date: new Date("October 12, 2019")
+        },
+        {
+            id: "Florida",
+            date: new Date("October 19, 2019")
+        },
+        {
+            id: "Tennessee",
+            date: new Date("October 26, 2019")
+        },
+        {
+            id: "Vanderbilt",
+            date: new Date("November 02, 2019")
+        },
+        {
+            id: "App State",
+            date: new Date("November 09, 2019")
+        },
+        {
+            id: "Texas A&M",
+            date: new Date("November 16, 2019")
+        },
+        {
+            id: "Clemson",
+            date: new Date("November 30, 2019")
+        }
+    ];
+ 
+  
+  for(game of uscSchedule) {
+    // Subtract the game date in miliseconds from the current time in miliseconds.
+    let t = currentDate1.getTime() - game.date.getTime(); 
+    // Divide the outcome by number of days calc (cd).
+    let d = Math.floor(t / cd);
+    // If the number of days is negative, set the game ID & break out.
+    console.log(d)
+    if(d < 0) {
+      awayTeam.innerHTML = game.id;
+      break;
+    }
+  }
+    </script>
+</body>
+</html>
