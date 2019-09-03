@@ -16,19 +16,24 @@
             <input class="hero__input" id="visitorScore" type="number" maxlength="2" placeholder="0" />
         </div>
     </form>
+    <br /><br />
+    <div class="output"></div>
 
 <script id="rendered-js">
     
+    let output = "";
+    
     const awayTeam = document.querySelector(".hero__label--away"),
-    currentDate = new Date(),
+    outputElem = document.querySelector(".output"),
     currentDate1 = new Date("2019-09-01T00:00:01"),
     currentDate2 = new Date("2019-09-14T00:00:01"),
+    currentDate = EasternOffset(new Date()),
     cd = 24 * 60 * 60 * 1000;
 
 const uscSchedule = [
         {
             id: "North Carolina",
-            date: new Date('August 31, 2019'),
+            date: new Date('August 30, 2019'),
         },
         {
             id: "Charleston So",
@@ -76,10 +81,25 @@ const uscSchedule = [
         }
     ];
  
+    function EasternOffset(curDate) {
+        //console.log(curDate.toString());
+        output = `This is your current date/time in your machine's timezone - ${curDate.toString()}`;
+        let userOffset = curDate.getTimezoneOffset()*60*1000;
+        output = `${output} <br/> <br/> This is your current machine's timezone offset in milliseconds - ${userOffset}`;
+        //console.log("Offset - " + userOffset);
+        let easternOffset = 4*60*60*1000;
+        //console.log("Eastern Offset - " + easternOffset);
+        output = `${output} <br/> <br/> This is the Eastern timezone offset in milliseconds - ${easternOffset}`;
+        let newTime = new Date(curDate.getTime() - (easternOffset - userOffset)); 
+        //console.log(newTime.toString());
+        output = `${output} <br/> <br/> This is your the Eastern time matching your current machine's timezone - ${newTime.toString()}`;
+        outputElem.innerHTML = output;
+        return newTime.getTime();
+    }
   
   for(game of uscSchedule) {
     // Subtract the game date in miliseconds from the current time in miliseconds.
-    let t = currentDate.getTime() - game.date.getTime(); 
+    let t =  currentDate - game.date;
     // Divide the outcome by number of days calc (cd).
     let d = Math.floor(t / cd);
     // If the number of days is negative, set the game ID & break out.
